@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import { DummyData } from '../data.model';
 
@@ -11,22 +12,23 @@ export class DataTableComponent implements OnInit {
 
   data: DummyData[] = [];
   cols: any[] = [];
+  employeeForm!: FormGroup;
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    private dataService: DataService,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
-    this.loadData();
+    this.loadData(); // Fetch data from server
     this.setupColumns();
+    this.createForm();
   }
 
   loadData(): void {
     this.dataService.getDummyData().subscribe(
       (response) => {
-        this.data = response.map(item => ({
-          ...item,
-          DateOfBirth: new Date(item.DateOfBirth), // Convert string to Date object
-          DateOfJoining: new Date(item.DateOfJoining) // Convert string to Date object
-        }));
+        this.data = response;
       },
       (error) => {
         console.error('Error fetching data:', error);
@@ -52,6 +54,15 @@ export class DataTableComponent implements OnInit {
     ];
   }
 
+  createForm(): void {
+    this.employeeForm = this.fb.group({
+      EmployeeId: ['', Validators.required],
+      EmployeeName: ['', Validators.required],
+      DateOfJoining: ['', Validators.required],
+      DateOfBirth: ['', Validators.required],
+      Salary: ['', Validators.required]
+    });
+  }
   formatSalary(value: any): string {
     if (typeof value === 'string') {
       const parsedValue = parseFloat(value);
@@ -60,6 +71,27 @@ export class DataTableComponent implements OnInit {
       }
     }
     return value.toString();
+  }
+
+  onSubmit(): void {
+    if (this.employeeForm.valid) {
+      const newEmployee: DummyData = {
+        id: (this.data.length + 1).toString(),
+        EmployeeId: this.employeeForm.value.EmployeeId,
+        EmployeeName: this.employeeForm.value.EmployeeName,
+        DateOfJoining: this.employeeForm.value.DateOfJoining,
+        DateOfBirth: this.employeeForm.value.DateOfBirth,
+        Salary: this.employeeForm.value.Salary
+      };
+
+      // Format salary before pushing to data array
+      newEmployee.Salary = this.formatSalary(newEmployee.Salary);
+
+      this.data.push(newEmployee);
+      this.employeeForm.reset();
+    } else {
+      this.employeeForm.markAllAsTouched(); // Mark all fields as touched to display validation messages
+    }
   }
 
 }

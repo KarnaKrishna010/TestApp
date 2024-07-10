@@ -5,6 +5,11 @@ import { TableModule } from 'primeng/table'; // Import TableModule from PrimeNG
 
 import { AppComponent } from './app.component';
 import { DataTableComponent } from './data-table/data-table.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { CalendarModule } from 'primeng/calendar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -13,7 +18,12 @@ import { DataTableComponent } from './data-table/data-table.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    InputTextModule,
+    CalendarModule,
+    InputNumberModule,
     HttpClientModule,
+    ReactiveFormsModule,
     TableModule // Include TableModule here
   ],
   providers: [],
