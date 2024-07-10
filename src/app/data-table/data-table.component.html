@@ -1,20 +1,30 @@
 <div class="card">
-<p-table [value]="data" [tableStyle]="{'min-width':'50rem'}" [columns]="cols">
+  <p-table [value]="data" [tableStyle]="{'min-width':'50rem'}" [columns]="cols">
     <ng-template pTemplate="header" let-columns>
       <tr>
-        <th *ngFor="let col of columns">
-            {{col.header}}
-        </th>    
+        <th *ngFor="let col of columns" [ngStyle]="{'display': col.visible !== false ? 'table-cell' : 'none'}">
+          {{ col.header }}
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
       <tr>
-        <td *ngFor="let col of columns">
-            {{rowData[col.field]}}
+        <td *ngFor="let col of columns" [ngStyle]="{'display': col.visible !== false ? 'table-cell' : 'none'}">
+          <ng-container *ngIf="!col.formatFunction">
+            <!-- Use Angular DatePipe to format Date fields -->
+            <span *ngIf="col.field === 'DateOfJoining' || col.field === 'DateOfBirth'">
+              {{ rowData[col.field] | date:'dd/MMM/yyyy' }}
+            </span>
+            <!-- Display other fields as-is -->
+            <span *ngIf="col.field !== 'DateOfJoining' && col.field !== 'DateOfBirth'">
+              {{ rowData[col.field] }}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="col.formatFunction">
+            {{ col.formatFunction(rowData[col.field]) }}
+          </ng-container>
         </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
-  <!--This file contains the HTML template for the DataTableComponent. It defines the structure and layout of the component's view, which includes elements and bindings to display data fetched from the service.-->
-  

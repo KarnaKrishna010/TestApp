@@ -2,11 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { DummyData } from '../data.model';
 
-interface Column{
-  field:string;
-  header:string;
-}
-
 @Component({
   selector: 'app-data-table',
   templateUrl: './data-table.component.html',
@@ -15,31 +10,56 @@ interface Column{
 export class DataTableComponent implements OnInit {
 
   data: DummyData[] = [];
+  cols: any[] = [];
 
-  cols!:Column[];
+  constructor(private dataService: DataService) { }
 
-  constructor(private dataService: DataService) { } //injected to fetch data from data.service.ts 
+  ngOnInit(): void {
+    this.loadData();
+    this.setupColumns();
+  }
 
-  ngOnInit(): void { //fetches data during initialization ngOnInit() 
+  loadData(): void {
     this.dataService.getDummyData().subscribe(
       (response) => {
-        this.data = response;
+        this.data = response.map(item => ({
+          ...item,
+          DateOfBirth: new Date(item.DateOfBirth), // Convert string to Date object
+          DateOfJoining: new Date(item.DateOfJoining) // Convert string to Date object
+        }));
       },
       (error) => {
         console.error('Error fetching data:', error);
       }
     );
-  
-   this.cols=[
-    {field:'id',header:'ID'}, //Hide ID column to user 
-    {field:'EmployeeId',header:'Employee ID'},
-    {field:'EmployeeName',header:'Employee Name'},
-    {field:'DateOfJoining',header:'Date of Joining'},
-    {field:'DateOfBirth',header:'Date of Birth'},
-    {field:'Salary',header:'Employee Salary'}
-   ]; 
   }
-  
-}
 
-//Angular component responsible for displaying data fetched from the service.
+  setupColumns(): void {
+    this.cols = [
+      { field: 'id', header: 'ID', visible: false },
+      { field: 'EmployeeId', header: 'Employee ID', visible: true },
+      { field: 'EmployeeName', header: 'Employee Name', visible: true },
+      { field: 'DateOfJoining', header: 'Date of Joining', visible: true },
+      { field: 'DateOfBirth', header: 'Date of Birth', visible: true },
+      {
+        field: 'Salary',
+        header: 'Employee Salary',
+        visible: true,
+        formatFunction: (value: any) => {
+          return this.formatSalary(value);
+        }
+      }
+    ];
+  }
+
+  formatSalary(value: any): string {
+    if (typeof value === 'string') {
+      const parsedValue = parseFloat(value);
+      if (!isNaN(parsedValue)) {
+        return parsedValue.toLocaleString('en-US');
+      }
+    }
+    return value.toString();
+  }
+
+}

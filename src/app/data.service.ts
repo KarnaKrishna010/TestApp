@@ -14,7 +14,7 @@ export class DataService {
 
   getDummyData(): Observable<DummyData[]> { //method uses HTTPClient to make a get request to fetch data from JSON
     return this.http.get<DummyData[]>(this.dataUrl).pipe(
-      map((response: any) => response.DummyData),delay(10000)
+      map((response: any) => response.DummyData)
     ); //returns an Observable of type DummyData[] 
   }
 }
