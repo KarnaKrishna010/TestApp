@@ -48,8 +48,8 @@ export class DataService {
   }
 
   deleteEmployee(id: string): Observable<void> {
-    this.data = this.data.filter(employee => employee.id !== id); // Remove employee from array
-    return of(); // Return an observable
+    this.data = this.data.filter(emp => emp.id !== id);
+    return of(undefined);
   }
   
 }

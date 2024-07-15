@@ -70,7 +70,9 @@ export class DataTableComponent implements OnInit {
 
   deleteEmployee(id: string): void {
     if (confirm('Are you sure you want to delete this employee?')) {
+      console.log("In Delete");
       this.dataService.deleteEmployee(id).subscribe(() => {
+        console.log('Data after deletion:', this.data);
         this.loadData(); // Reload data to reflect changes
       });
     }
