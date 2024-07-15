@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { DummyData } from '../data.model';
 
@@ -12,23 +12,25 @@ export class DataTableComponent implements OnInit {
 
   data: DummyData[] = [];
   cols: any[] = [];
-  employeeForm!: FormGroup;
 
   constructor(
     private dataService: DataService,
-    private fb: FormBuilder
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.loadData(); // Fetch data from server
+    this.loadData();
     this.setupColumns();
-    this.createForm();
+    this.router.events.subscribe(() => {
+      this.loadData(); //Refresh data on route change
+    })
   }
 
   loadData(): void {
     this.dataService.getDummyData().subscribe(
       (response) => {
         this.data = response;
+        console.log('Data loaded:', this.data);
       },
       (error) => {
         console.error('Error fetching data:', error);
@@ -43,26 +45,15 @@ export class DataTableComponent implements OnInit {
       { field: 'EmployeeName', header: 'Employee Name', visible: true },
       { field: 'DateOfJoining', header: 'Date of Joining', visible: true },
       { field: 'DateOfBirth', header: 'Date of Birth', visible: true },
-      {
-        field: 'Salary',
-        header: 'Employee Salary',
-        visible: true,
-        formatFunction: (value: any) => {
-          return this.formatSalary(value);
-        }
-      }
+      { field: 'Salary', header: 'Salary', visible: true }
     ];
   }
 
-  createForm(): void {
-    this.employeeForm = this.fb.group({
-      EmployeeId: ['', Validators.required],
-      EmployeeName: ['', Validators.required],
-      DateOfJoining: ['', Validators.required],
-      DateOfBirth: ['', Validators.required],
-      Salary: ['', Validators.required]
-    });
+  formatDate(date: any): string {
+    const d = new Date(date);
+    return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
   }
+
   formatSalary(value: any): string {
     if (typeof value === 'string') {
       const parsedValue = parseFloat(value);
@@ -73,25 +64,18 @@ export class DataTableComponent implements OnInit {
     return value.toString();
   }
 
-  onSubmit(): void {
-    if (this.employeeForm.valid) {
-      const newEmployee: DummyData = {
-        id: (this.data.length + 1).toString(),
-        EmployeeId: this.employeeForm.value.EmployeeId,
-        EmployeeName: this.employeeForm.value.EmployeeName,
-        DateOfJoining: this.employeeForm.value.DateOfJoining,
-        DateOfBirth: this.employeeForm.value.DateOfBirth,
-        Salary: this.employeeForm.value.Salary
-      };
-
-      // Format salary before pushing to data array
-      newEmployee.Salary = this.formatSalary(newEmployee.Salary);
-
-      this.data.push(newEmployee);
-      this.employeeForm.reset();
-    } else {
-      this.employeeForm.markAllAsTouched(); // Mark all fields as touched to display validation messages
-    }
+  onEdit(employee: DummyData): void {
+    this.router.navigate(['/edit-employee', employee.id]);
   }
 
+  deleteEmployee(id: string): void {
+    if (confirm('Are you sure you want to delete this employee?')) {
+      this.dataService.deleteEmployee(id).subscribe(() => {
+        this.loadData(); // Reload data to reflect changes
+      });
+    }
+  }
+  
+
+  
 }

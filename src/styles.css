@@ -2,3 +2,26 @@
 @import 'primeicons/primeicons.css';
 @import 'primeng/resources/themes/saga-blue/theme.css';
 @import 'primeng/resources/primeng.min.css';
+
+/* styles.css or component-specific CSS file */
+
+.navbar {
+    margin-bottom: 20px;
+   
+  }
+  
+  .container {
+    margin-top: 20px;
+  }
+  
+  .table {
+    margin-top: 20px;
+  }
+
+  .navbar-brand {
+    font-size: 24px; /* Increase font size */
+    font-weight: bold; /* Make text bold */
+    color: #007bff; /* Customize text color */
+    justify-content: center;
+  }
+  
