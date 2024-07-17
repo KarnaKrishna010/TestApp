@@ -1,5 +1,11 @@
 <div class="card">
-  <p-table [value]="data" [tableStyle]="{'min-width':'50rem'}" [columns]="cols">
+  <input
+    type="text"
+    class="form-control mb-3"
+    placeholder="Search Employee"
+    (keyup.enter)="onSearch($event)"
+  />
+  <p-table [value]="filteredData" [tableStyle]="{'min-width':'50rem'}" [columns]="cols">
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th *ngFor="let col of columns" [ngStyle]="{'display': col.visible !== false ? 'table-cell' : 'none'}">

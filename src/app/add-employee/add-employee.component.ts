@@ -30,7 +30,7 @@ export class AddEmployeeComponent implements OnInit {
     });
   }
 
-  onSubmit(): void { //When the form is submitted, a new employee object is created with a unique ID. The employee is added to the data service, and the user is redirected to the employee list.
+  onSubmit(): void {
     if (this.employeeForm.valid) {
       this.dataService.getDummyData().subscribe(data => {
         const newId = (Math.max(...data.map(e => parseInt(e.id))) + 1).toString();
@@ -38,19 +38,19 @@ export class AddEmployeeComponent implements OnInit {
           id: newId,
           EmployeeId: this.employeeForm.value.EmployeeId,
           EmployeeName: this.employeeForm.value.EmployeeName,
-          DateOfJoining: new Date(this.employeeForm.value.DateOfJoining), // Convert to Date
-          DateOfBirth: new Date(this.employeeForm.value.DateOfBirth), // Convert to Date
+          DateOfJoining: new Date(this.employeeForm.value.DateOfJoining),
+          DateOfBirth: new Date(this.employeeForm.value.DateOfBirth),
           Salary: this.utilsService.formatSalary(this.employeeForm.value.Salary)
         };
-        
+  
         // Add the new employee using the data service
-        this.dataService.addEmployee(newEmployee);
-
-        // Navigate back to the employee list
-        this.router.navigate(['/data-table']);
+        this.dataService.addEmployee(newEmployee).subscribe(() => {
+          this.router.navigate(['/data-table']);
+        });
       });
     } else {
-      this.employeeForm.markAllAsTouched(); // Mark all fields as touched to display validation messages
+      this.employeeForm.markAllAsTouched();
     }
   }
+  
 }

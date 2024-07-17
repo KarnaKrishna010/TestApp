@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import { DummyData } from '../data.model';
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-edit-employee',
@@ -18,7 +19,8 @@ export class EditEmployeeComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private dataService: DataService
+    private dataService: DataService,
+    private utilsService:UtilsService
   ) { }
 
   ngOnInit(): void {
@@ -48,9 +50,9 @@ export class EditEmployeeComponent implements OnInit {
         ...this.employee,
         EmployeeId: this.employeeForm.value.EmployeeId,
         EmployeeName: this.employeeForm.value.EmployeeName,
-        DateOfJoining: this.employeeForm.value.DateOfJoining,
-        DateOfBirth: this.employeeForm.value.DateOfBirth,
-        Salary: this.employeeForm.value.Salary
+        DateOfJoining: new Date(this.employeeForm.value.DateOfJoining),
+        DateOfBirth: new Date(this.employeeForm.value.DateOfBirth),
+        Salary: this.utilsService.formatSalary(this.employeeForm.value.Salary)
       };
 
       this.dataService.updateEmployee(updatedEmployee).subscribe(() => {

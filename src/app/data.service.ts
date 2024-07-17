@@ -25,8 +25,14 @@ export class DataService {
   }
 
   getDummyData(): Observable<DummyData[]> {
-    return of(this.data);
+    return this.http.get<{ DummyData: DummyData[] }>(this.dataUrl).pipe(
+      map(response => {
+        this.data = response.DummyData; // Update the local data
+        return this.data; // Return the data for subscription
+      })
+    );
   }
+  
 
   addEmployee(newEmployee: DummyData): Observable<void> {
     this.data.push(newEmployee);

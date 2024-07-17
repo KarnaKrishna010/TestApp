@@ -9,8 +9,8 @@ import { DummyData } from '../data.model';
   styleUrls: ['./data-table.component.css']
 })
 export class DataTableComponent implements OnInit {
-
   data: DummyData[] = [];
+  filteredData: DummyData[] = [];
   cols: any[] = [];
 
   constructor(
@@ -21,16 +21,15 @@ export class DataTableComponent implements OnInit {
   ngOnInit(): void {
     this.loadData();
     this.setupColumns();
-    this.router.events.subscribe(() => {
-      this.loadData(); //Refresh data on route change
-    })
+    this.resetSearch();
   }
 
   loadData(): void {
     this.dataService.getDummyData().subscribe(
       (response) => {
+        console.log('Data loaded:', response);
         this.data = response;
-        console.log('Data loaded:', this.data);
+        this.filteredData = [...this.data]; // Initialize filteredData here
       },
       (error) => {
         console.error('Error fetching data:', error);
@@ -64,20 +63,35 @@ export class DataTableComponent implements OnInit {
     return value.toString();
   }
 
+  goToEmployeeList(): void {
+    this.loadData(); // Load all data
+    this.router.navigate(['/data-table']); // Navigate to the employee list
+  }
+  
+
   onEdit(employee: DummyData): void {
     this.router.navigate(['/edit-employee', employee.id]);
   }
 
   deleteEmployee(id: string): void {
     if (confirm('Are you sure you want to delete this employee?')) {
-      console.log("In Delete");
+      console.log("In Delete"); // Debugging log
       this.dataService.deleteEmployee(id).subscribe(() => {
-        console.log('Data after deletion:', this.data);
         this.loadData(); // Reload data to reflect changes
       });
     }
   }
-  
 
-  
+  onSearch(event: any): void {
+    const searchTerm = event.target.value.toLowerCase();
+    this.filteredData = this.data.filter(employee =>
+      employee.EmployeeId.toLowerCase().includes(searchTerm) ||
+      employee.EmployeeName.toLowerCase().includes(searchTerm)
+    );
+  }
+
+  resetSearch(): void{
+    console.log('Reset search called');
+    this.filteredData=[...this.data]; //Resets to full data
+  }
 }
