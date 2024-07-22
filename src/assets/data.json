@@ -1,45 +1,45 @@
 {
-    "DummyData": [
-      {
-        "id": "1",
-        "EmployeeId": "2",
-        "EmployeeName": "Karna",
-        "DateOfJoining": "01-Jan-2024",
-        "DateOfBirth": "16-Nov-2000",
-        "Salary": "10000"
-      },
-      {
-        "id":"2",
-        "EmployeeId":"10",
-        "EmployeeName":"Koral",
-        "DateOfJoining":"10-Feb-2023",
-        "DateOfBirth":"10-Aug-1995",
-        "Salary":"60000"
-      },
-      {
-        "id": "3",
-        "EmployeeId": "20",
-        "EmployeeName": "Dev",
-        "DateOfJoining": "21-Dec-2023",
-        "DateOfBirth": "26-Jan-2002",
-        "Salary": "30000"
-      },
-      {
-        "id": "4",
-        "EmployeeId": "32",
-        "EmployeeName": "Akash",
-        "DateOfJoining": "07-Aug-2024",
-        "DateOfBirth": "07-Mar-1985",
-        "Salary": "10000000"
-      },
-      {
-        "id": "5",
-        "EmployeeId": "29",
-        "EmployeeName": "Mihir",
-        "DateOfJoining": "11-Apr-2019",
-        "DateOfBirth": "16-Dec-1987",
-        "Salary": "5500000"
-      }
+  "DummyData": [
+    {
+      "id": "1",
+      "EmployeeId": "2",
+      "EmployeeName": "Karna",
+      "DateOfJoining": "01-Jan-2024",
+      "DateOfBirth": "16-Nov-2000",
+      "Salary": "10000"
+    },
+    {
+      "id":"2",
+      "EmployeeId":"10",
+      "EmployeeName":"Koral",
+      "DateOfJoining":"10-Feb-2023",
+      "DateOfBirth":"10-Aug-1995",
+      "Salary":"60000"
+    },
+    {
+      "id": "3",
+      "EmployeeId": "20",
+      "EmployeeName": "Dev",
+      "DateOfJoining": "21-Dec-2023",
+      "DateOfBirth": "26-Jan-2002",
+      "Salary": "30000"
+    },
+    {
+      "id": "4",
+      "EmployeeId": "32",
+      "EmployeeName": "Akash",
+      "DateOfJoining": "07-Aug-2024",
+      "DateOfBirth": "07-Mar-1985",
+      "Salary": "10000000"
+    },
+    {
+      "id": "5",
+      "EmployeeId": "29",
+      "EmployeeName": "Mihir",
+      "DateOfJoining": "11-Apr-2019",
+      "DateOfBirth": "16-Dec-1987",
+      "Salary": "5500000"
+    }
 
-    ]
+  ]
 }

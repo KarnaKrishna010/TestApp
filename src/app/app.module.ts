@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'; //Replacement of HttpClientModule 
 import { TableModule } from 'primeng/table'; // Import TableModule from PrimeNG
-import { RouterModule } from '@angular/router';
+import { RouterModule,Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import { ReactiveFormsModule } from '@angular/forms';

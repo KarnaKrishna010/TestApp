@@ -20,26 +20,27 @@ export class EditEmployeeComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private dataService: DataService,
-    private utilsService:UtilsService
+    private utilsService: UtilsService
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => { //subscribes to the changes in the path parameter, uses ActivatedRoute service 
-      const id = params['id']; //retrives the ID from the URL 
-      this.dataService.getDummyData().subscribe(data => {  //fetches dummy data
-        this.employee = data.find(emp => emp.id === id)!; //searches for an employee id whose matches the provided id, ! operator indicates the result to be not null 
-        this.createForm(); //if the employee is found create the form 
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      this.dataService.getDummyData().subscribe(data => {
+        this.employee = data.find(emp => emp.id === id)!;
+        if (this.employee) {
+          this.createForm();
+        }
       });
     });
   }
 
   createForm(): void {
     this.employeeForm = this.fb.group({
-      id: [{ value: this.employee.id, disabled: true }],
       EmployeeId: [this.employee.EmployeeId, Validators.required],
       EmployeeName: [this.employee.EmployeeName, Validators.required],
-      DateOfJoining: [this.employee.DateOfJoining, Validators.required],
-      DateOfBirth: [this.employee.DateOfBirth, Validators.required],
+      DateOfJoining: [new Date(this.employee.DateOfJoining), Validators.required],
+      DateOfBirth: [new Date(this.employee.DateOfBirth), Validators.required],
       Salary: [this.employee.Salary, Validators.required]
     });
   }

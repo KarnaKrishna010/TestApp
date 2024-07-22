@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="mb-5"> <!-- Increased margin for Date of Joining -->
+    <div class="mb-5">
       <label for="DateOfJoining" class="form-label">Date of Joining</label>
       <p-calendar id="DateOfJoining" class="form-control" formControlName="DateOfJoining" dateFormat="dd/M/yy"></p-calendar>
       <div *ngIf="employeeForm.get('DateOfJoining')?.invalid && employeeForm.get('DateOfJoining')?.touched" class="text-danger">
@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <div class="mb-5"> <!-- Increased margin for Date of Birth -->
+    <div class="mb-5">
       <label for="DateOfBirth" class="form-label">Date of Birth</label>
       <p-calendar id="DateOfBirth" class="form-control" formControlName="DateOfBirth" dateFormat="dd/M/yy"></p-calendar>
       <div *ngIf="employeeForm.get('DateOfBirth')?.invalid && employeeForm.get('DateOfBirth')?.touched" class="text-danger">
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="mb-5"> <!-- Increased margin for Salary -->
+    <div class="mb-5">
       <label for="Salary" class="form-label">Salary</label>
       <p-inputNumber id="Salary" class="form-control" formControlName="Salary"></p-inputNumber>
       <div *ngIf="employeeForm.get('Salary')?.invalid && employeeForm.get('Salary')?.touched" class="text-danger">
