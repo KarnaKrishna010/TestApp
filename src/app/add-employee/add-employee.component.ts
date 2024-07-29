@@ -24,33 +24,33 @@ export class AddEmployeeComponent implements OnInit {
     this.employeeForm = this.fb.group({
       EmployeeId: ['', Validators.required],
       EmployeeName: ['', Validators.required],
+      Mobile:['',Validators.required],
+      Email:['',[Validators.required, Validators.email]],
       DateOfJoining: ['', Validators.required],
       DateOfBirth: ['', Validators.required],
-      Salary: ['', Validators.required]
+      Salary: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]]
     });
   }
 
-  onSubmit(): void { //When the form is submitted, a new employee object is created with a unique ID. The employee is added to the data service, and the user is redirected to the employee list.
+  onSubmit(): void {
     if (this.employeeForm.valid) {
-      this.dataService.getDummyData().subscribe(data => {
-        const newId = (Math.max(...data.map(e => parseInt(e.id))) + 1).toString();
-        const newEmployee: DummyData = {
-          id: newId,
-          EmployeeId: this.employeeForm.value.EmployeeId,
-          EmployeeName: this.employeeForm.value.EmployeeName,
-          DateOfJoining: new Date(this.employeeForm.value.DateOfJoining), // Convert to Date
-          DateOfBirth: new Date(this.employeeForm.value.DateOfBirth), // Convert to Date
-          Salary: this.utilsService.formatSalary(this.employeeForm.value.Salary)
-        };
-        
-        // Add the new employee using the data service
-        this.dataService.addEmployee(newEmployee);
-
-        // Navigate back to the employee list
+      const newEmployee: DummyData = {
+        id: '', // Let API generate the ID if applicable
+        EmployeeId: this.employeeForm.value.EmployeeId,
+        EmployeeName: this.employeeForm.value.EmployeeName,
+        Mobile:this.employeeForm.value.Mobile,
+        Email:this.employeeForm.value.Email,
+        DateOfJoining: new Date(this.employeeForm.value.DateOfJoining),
+        DateOfBirth: new Date(this.employeeForm.value.DateOfBirth),
+        Salary: this.employeeForm.value.Salary 
+      };
+      
+      this.dataService.addEmployee(newEmployee).subscribe(() => {
         this.router.navigate(['/data-table']);
       });
     } else {
-      this.employeeForm.markAllAsTouched(); // Mark all fields as touched to display validation messages
+      this.employeeForm.markAllAsTouched();
     }
   }
+  
 }

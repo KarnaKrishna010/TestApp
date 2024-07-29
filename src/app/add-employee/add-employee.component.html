@@ -1,46 +1,61 @@
-<div class="container mt-4">
-  <h2 class="text-center mb-4">Add Employee</h2>
-  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="needs-validation">
-    <div class="mb-3">
-      <label for="EmployeeId" class="form-label">Employee ID</label>
-      <input type="text" pInputText formControlName="EmployeeId" id="EmployeeId" class="form-control" placeholder="Enter Employee ID" required />
-      <div *ngIf="employeeForm.get('EmployeeId')?.invalid && employeeForm.get('EmployeeId')?.touched" class="text-danger">
-        Employee ID is required!
+<div class="card">
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div class="p-field">
+      <label for="EmployeeId">Employee ID</label>
+      <input id="EmployeeId" formControlName="EmployeeId" pInputText />
+      <div *ngIf="employeeForm.get('EmployeeId')?.invalid && employeeForm.get('EmployeeId')?.touched">
+        <small class="p-error">Employee ID is required.</small>
       </div>
     </div>
 
-    <div class="mb-3">
-      <label for="EmployeeName" class="form-label">Employee Name</label>
-      <input type="text" pInputText formControlName="EmployeeName" id="EmployeeName" class="form-control" placeholder="Enter Employee Name" required />
-      <div *ngIf="employeeForm.get('EmployeeName')?.invalid && employeeForm.get('EmployeeName')?.touched" class="text-danger">
-        Employee Name is required!
+    <div class="p-field">
+      <label for="EmployeeName">Employee Name</label>
+      <input id="EmployeeName" formControlName="EmployeeName" pInputText />
+      <div *ngIf="employeeForm.get('EmployeeName')?.invalid && employeeForm.get('EmployeeName')?.touched">
+        <small class="p-error">Employee Name is required.</small>
       </div>
     </div>
 
-    <div class="mb-3">
-      <label for="DateOfJoining" class="form-label">Date of Joining</label>
-      <p-calendar formControlName="DateOfJoining" id="DateOfJoining" class="form-control" dateFormat="dd/M/yy" required></p-calendar>
-      <div *ngIf="employeeForm.get('DateOfJoining')?.invalid && employeeForm.get('DateOfJoining')?.touched" class="text-danger">
-        Date of joining is required!
+    <div class="p-field">
+      <label for="Mobile">Mobile</label>
+      <input id="Mobile" formControlName="Mobile" pInputText />
+      <div *ngIf="employeeForm.get('Mobile')?.invalid && employeeForm.get('Mobile')?.touched">
+        <small class="p-error">Mobile is required.</small>
       </div>
     </div>
 
-    <div class="mb-3">
-      <label for="DateOfBirth" class="form-label">Date of Birth</label>
-      <p-calendar formControlName="DateOfBirth" id="DateOfBirth" class="form-control" dateFormat="dd/M/yy" required></p-calendar>
-      <div *ngIf="employeeForm.get('DateOfBirth')?.invalid && employeeForm.get('DateOfBirth')?.touched" class="text-danger">
-        Date of birth is required!
+    <div class="p-field">
+      <label for="Email">Email</label>
+      <input id="Email" formControlName="Email" pInputText />
+      <div *ngIf="employeeForm.get('Email')?.invalid && employeeForm.get('Email')?.touched">
+        <small class="p-error">Valid Email is required.</small>
       </div>
     </div>
 
-    <div class="mb-3">
-      <label for="Salary" class="form-label">Salary</label>
-      <p-inputNumber formControlName="Salary" id="Salary" class="form-control" placeholder="Enter Salary" required></p-inputNumber>
-      <div *ngIf="employeeForm.get('Salary')?.invalid && employeeForm.get('Salary')?.touched" class="text-danger">
-        Salary is required!
+    <div class="p-field">
+      <label for="DateOfJoining">Date of Joining</label>
+      <p-calendar id="DateOfJoining" formControlName="DateOfJoining"></p-calendar>
+      <div *ngIf="employeeForm.get('DateOfJoining')?.invalid && employeeForm.get('DateOfJoining')?.touched">
+        <small class="p-error">Date of Joining is required.</small>
       </div>
     </div>
 
-    <button type="submit" [disabled]="employeeForm.invalid" class="btn btn-primary w-100">Add Employee</button>
+    <div class="p-field">
+      <label for="DateOfBirth">Date of Birth</label>
+      <p-calendar id="DateOfBirth" formControlName="DateOfBirth"></p-calendar>
+      <div *ngIf="employeeForm.get('DateOfBirth')?.invalid && employeeForm.get('DateOfBirth')?.touched">
+        <small class="p-error">Date of Birth is required.</small>
+      </div>
+    </div>
+
+    <div class="p-field">
+      <label for="Salary">Salary</label>
+      <input id="Salary" formControlName="Salary" pInputText />
+      <div *ngIf="employeeForm.get('Salary')?.invalid && employeeForm.get('Salary')?.touched">
+        <small class="p-error">Salary is required.</small>
+      </div>
+    </div>
+
+    <button type="submit" pButton label="Add Employee" [disabled]="employeeForm.invalid"></button>
   </form>
 </div>

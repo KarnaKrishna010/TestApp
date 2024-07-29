@@ -18,11 +18,27 @@
       </div>
     </div>
 
+    <div class="mb-4">
+      <label for="Mobile" class="form-label">Mobile</label>
+      <input type="text" id="Mobile" class="form-control" formControlName="Mobile" />
+      <div *ngIf="employeeForm.get('Mobile')?.invalid && employeeForm.get('Mobile')?.touched" class="text-danger">
+        Mobile is required!
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="Email" class="form-label">Email</label>
+      <input type="email" id="Email" class="form-control" formControlName="Email" />
+      <div *ngIf="employeeForm.get('Email')?.invalid && employeeForm.get('Email')?.touched" class="text-danger">
+        Valid Email is required!
+      </div>
+    </div>
+
     <div class="mb-5">
       <label for="DateOfJoining" class="form-label">Date of Joining</label>
       <p-calendar id="DateOfJoining" class="form-control" formControlName="DateOfJoining" dateFormat="dd/M/yy"></p-calendar>
       <div *ngIf="employeeForm.get('DateOfJoining')?.invalid && employeeForm.get('DateOfJoining')?.touched" class="text-danger">
-        Date of joining is required!
+        Date of Joining is required!
       </div>
     </div>
 
@@ -30,7 +46,7 @@
       <label for="DateOfBirth" class="form-label">Date of Birth</label>
       <p-calendar id="DateOfBirth" class="form-control" formControlName="DateOfBirth" dateFormat="dd/M/yy"></p-calendar>
       <div *ngIf="employeeForm.get('DateOfBirth')?.invalid && employeeForm.get('DateOfBirth')?.touched" class="text-danger">
-        Date of birth is required!
+        Date of Birth is required!
       </div>
     </div>
 

@@ -37,11 +37,13 @@ export class EditEmployeeComponent implements OnInit {
 
   createForm(): void {
     this.employeeForm = this.fb.group({
-      EmployeeId: [this.employee.EmployeeId, Validators.required],
-      EmployeeName: [this.employee.EmployeeName, Validators.required],
-      DateOfJoining: [new Date(this.employee.DateOfJoining), Validators.required],
-      DateOfBirth: [new Date(this.employee.DateOfBirth), Validators.required],
-      Salary: [this.employee.Salary, Validators.required]
+      employeeId: [this.employee.EmployeeId, Validators.required],
+      employeeName: [this.employee.EmployeeName, Validators.required],
+      mobile:['',Validators.required],
+      email:['',[Validators.required, Validators.email]],
+      dateOfJoining: [new Date(this.employee.DateOfJoining), Validators.required],
+      dateOfBirth: [new Date(this.employee.DateOfBirth), Validators.required],
+      salary: [this.employee.Salary, Validators.required]
     });
   }
 
@@ -51,14 +53,17 @@ export class EditEmployeeComponent implements OnInit {
         ...this.employee,
         EmployeeId: this.employeeForm.value.EmployeeId,
         EmployeeName: this.employeeForm.value.EmployeeName,
+        Mobile:this.employeeForm.value.Mobile,
+        Email:this.employeeForm.value.Email,
         DateOfJoining: new Date(this.employeeForm.value.DateOfJoining),
         DateOfBirth: new Date(this.employeeForm.value.DateOfBirth),
         Salary: this.utilsService.formatSalary(this.employeeForm.value.Salary)
       };
-
+  
       this.dataService.updateEmployee(updatedEmployee).subscribe(() => {
         this.router.navigate(['/data-table']);
       });
     }
   }
+  
 }
