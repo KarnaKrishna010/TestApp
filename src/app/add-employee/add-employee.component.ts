@@ -22,13 +22,13 @@ export class AddEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeForm = this.fb.group({
-      EmployeeId: ['', Validators.required],
-      EmployeeName: ['', Validators.required],
-      Mobile:['',Validators.required],
-      Email:['',[Validators.required, Validators.email]],
-      DateOfJoining: ['', Validators.required],
-      DateOfBirth: ['', Validators.required],
-      Salary: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]]
+      employeeId: ['', Validators.required],
+      employeeName: ['', Validators.required],
+      mobile:['',Validators.required],
+      email:['',[Validators.required, Validators.email]],
+      dateOfJoining: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      salary: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]]
     });
   }
 
@@ -36,13 +36,13 @@ export class AddEmployeeComponent implements OnInit {
     if (this.employeeForm.valid) {
       const newEmployee: DummyData = {
         id: '', // Let API generate the ID if applicable
-        EmployeeId: this.employeeForm.value.EmployeeId,
-        EmployeeName: this.employeeForm.value.EmployeeName,
-        Mobile:this.employeeForm.value.Mobile,
-        Email:this.employeeForm.value.Email,
-        DateOfJoining: new Date(this.employeeForm.value.DateOfJoining),
-        DateOfBirth: new Date(this.employeeForm.value.DateOfBirth),
-        Salary: this.employeeForm.value.Salary 
+        employeeId: this.employeeForm.value.employeeId,
+        employeeName: this.employeeForm.value.employeeName,
+        mobile:this.employeeForm.value.mobile,
+        email:this.employeeForm.value.email,
+        dateOfJoining: new Date(this.employeeForm.value.dateOfJoining),
+        dateOfBirth: new Date(this.employeeForm.value.dateOfBirth),
+        salary: this.employeeForm.value.salary 
       };
       
       this.dataService.addEmployee(newEmployee).subscribe(() => {

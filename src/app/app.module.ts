@@ -19,7 +19,7 @@ import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
     AppComponent,
     DataTableComponent,
     AddEmployeeComponent,
-    EditEmployeeComponent
+    EditEmployeeComponent,
   ],
   imports: [
     BrowserModule,

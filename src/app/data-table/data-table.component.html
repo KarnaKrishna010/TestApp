@@ -19,12 +19,12 @@
         <td *ngFor="let col of columns" [ngStyle]="{'display': col.visible !== false ? 'table-cell' : 'none'}">
           <ng-container *ngIf="!col.formatFunction">
             <!-- Use Angular DatePipe to format Date fields -->
-            <span *ngIf="col.field === 'DateOfJoining' || col.field === 'DateOfBirth'">
+            <span *ngIf="col.field === 'dateOfJoining' || col.field === 'dateOfBirth'">
               {{ formatDate(rowData[col.field]) }}
             </span>
             <!-- Display other fields as-is -->
-            <span *ngIf="col.field !== 'DateOfJoining' && col.field !== 'DateOfBirth'">
-              {{ col.field === 'Salary' ? formatSalary(rowData[col.field]) : rowData[col.field] }}
+            <span *ngIf="col.field !== 'dateOfJoining' && col.field !== 'dateOfBirth'">
+              {{ col.field === 'salary' ? formatSalary(rowData[col.field]) : rowData[col.field] }}
             </span>
           </ng-container>
           <ng-container *ngIf="col.formatFunction">

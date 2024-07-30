@@ -1,12 +1,12 @@
 export interface DummyData {
     id: string;
-    EmployeeId: string;
-    EmployeeName: string;
-    Mobile:string;
-    Email:string;
-    DateOfJoining: Date; // Change to Date type
-    DateOfBirth: Date; // Change to Date type
-    Salary: string;
+    employeeId: string;
+    employeeName: string;
+    mobile:string;
+    email:string;
+    dateOfJoining: Date; // Change to Date type
+    dateOfBirth: Date; // Change to Date type
+    salary: string;
   }
 
   export interface DataUpdateResponse{

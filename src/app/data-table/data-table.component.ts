@@ -69,8 +69,15 @@ export class DataTableComponent implements OnInit {
   
 
   onEdit(employee: DummyData): void {
-    this.router.navigate(['/edit-employee', employee.id]);
+    console.log('Employee data:', employee);  // Check if EmployeeId is logged correctly here
+    console.log('Employee ID:', employee.employeeId);  // Should log the ID or reveal if it's missing
+    if (employee && employee.employeeId) {
+      this.router.navigate(['/edit-employee', employee.employeeId]);
+    } else {
+      console.error("Employee ID is undefined or invalid");
+    }
   }
+  
 
   deleteEmployee(id: string): void {
     if (confirm('Are you sure you want to delete this employee?')) {
@@ -83,8 +90,8 @@ export class DataTableComponent implements OnInit {
   onSearch(event: any): void {
     const searchTerm = event.target.value.toLowerCase();
     this.filteredData = this.data.filter(employee =>
-      employee.EmployeeId.toLowerCase().includes(searchTerm) ||
-      employee.EmployeeName.toLowerCase().includes(searchTerm)
+      employee.employeeId.toLowerCase().includes(searchTerm) ||
+      employee.employeeName.toLowerCase().includes(searchTerm)
     );
   }
 
