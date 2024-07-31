@@ -42,7 +42,6 @@ export class DataTableComponent implements OnInit {
 
   setupColumns(): void {
     this.cols = [
-      { field: 'id', header: 'ID', visible: false },
       { field: 'employeeId', header: 'Employee ID', visible: true },
       { field: 'employeeName', header: 'Employee Name', visible: true },
       { field: 'mobile', header: 'Mobile', visible: true },
@@ -93,10 +92,16 @@ export class DataTableComponent implements OnInit {
 
   onSearch(event: any): void {
     const searchTerm = event.target.value.toLowerCase();
-    this.filteredData = this.data.filter(employee =>
-      employee.employeeId.toLowerCase().includes(searchTerm) ||
-      employee.employeeName.toLowerCase().includes(searchTerm)
-    );
+    console.log("Searched term is: " ,searchTerm);
+
+    this.filteredData = this.data.filter(employee => {
+      const employeeId = employee.employeeId?.toString().toLowerCase() || '';
+      const employeeName = employee.employeeName?.toString().toLowerCase() || '';
+
+      return employeeId.includes(searchTerm) || employeeName.includes(searchTerm);
+    }
+    )    
+    
   }
 
   resetSearch(): void{

@@ -3,6 +3,7 @@ import { DataService } from '../data.service';
 import { EmployeeDTOList } from '../data.model'; // Adjust the import based on your actual DTO
 import { UtilsService } from '../utils.service';
 
+
 @Component({
   selector: 'app-deleted-list',
   templateUrl: './deleted-list.component.html',
@@ -21,17 +22,33 @@ export class DeletedListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDeletedEmployees();
+    this.setupColumns();
   }
 
   loadDeletedEmployees(): void {
     this.dataService.getDeletedData().subscribe(
       data => {
         this.deletedEmployees = data;
+        console.log(data);
+        this.data=data;
+        this.filteredData=data;
       },
       error => {
         console.error('Error fetching deleted data:', error);
       }
     );
+  }
+
+  setupColumns(): void {
+    this.cols = [
+      { field: 'employeeId', header: 'Employee ID', visible: true },
+      { field: 'employeeName', header: 'Employee Name', visible: true },
+      { field: 'mobile', header: 'Mobile', visible: true },
+      { field: 'email', header: 'Email', visible: true },
+      { field: 'dateOfJoining', header: 'Date of Joining', visible: true },
+      { field: 'dateOfBirth', header: 'Date of Birth', visible: true },
+      { field: 'salary', header: 'Salary', visible: true }
+    ];
   }
 
   formatDate(date:any):string{
@@ -44,10 +61,16 @@ export class DeletedListComponent implements OnInit {
 
   onSearch(event: any): void {
     const searchTerm = event.target.value.toLowerCase();
-    this.filteredData = this.data.filter(employee =>
-      employee.employeeId.toLowerCase().includes(searchTerm) ||
-      employee.employeeName.toLowerCase().includes(searchTerm)
-    );
+    console.log("Searched term is: " ,searchTerm);
+
+    this.filteredData = this.data.filter(employee => {
+      const employeeId = employee.employeeId?.toString().toLowerCase() || '';
+      const employeeName = employee.employeeName?.toString().toLowerCase() || '';
+
+      return employeeId.includes(searchTerm) || employeeName.includes(searchTerm);
+    }
+    )    
+    
   }
 
 }
