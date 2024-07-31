@@ -1,12 +1,6 @@
 <div class="card">
   <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-    <div class="p-field">
-      <label for="employeeId">Employee ID</label>
-      <input id="employeeId" formControlName="employeeId" pInputText />
-      <div *ngIf="employeeForm.get('employeeId')?.invalid && employeeForm.get('employeeId')?.touched">
-        <small class="p-error">Employee ID is required.</small>
-      </div>
-    </div>
+    
 
     <div class="p-field">
       <label for="employeeName">Employee Name</label>
@@ -34,7 +28,7 @@
 
     <div class="p-field">
       <label for="dateOfJoining">Date of Joining</label>
-      <p-calendar id="dateOfJoining" formControlName="dateOfJoining"></p-calendar>
+      <p-calendar id="dateOfJoining" formControlName="dateOfJoining" dateFormat="dd/mm/yy"></p-calendar>
       <div *ngIf="employeeForm.get('dateOfJoining')?.invalid && employeeForm.get('dateOfJoining')?.touched">
         <small class="p-error">Date of Joining is required.</small>
       </div>
@@ -42,7 +36,7 @@
 
     <div class="p-field">
       <label for="dateOfBirth">Date of Birth</label>
-      <p-calendar id="dateOfBirth" formControlName="dateOfBirth"></p-calendar>
+      <p-calendar id="dateOfBirth" formControlName="dateOfBirth" dateFormat="dd/mm/yy"></p-calendar>
       <div *ngIf="employeeForm.get('dateOfBirth')?.invalid && employeeForm.get('dateOfBirth')?.touched">
         <small class="p-error">Date of Birth is required.</small>
       </div>

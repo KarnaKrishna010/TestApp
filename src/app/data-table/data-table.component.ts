@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
-import { DummyData } from '../data.model';
+import { EmployeeDTOList } from '../data.model';
 import { UtilsService } from '../utils.service';
 
 @Component({
@@ -10,8 +10,8 @@ import { UtilsService } from '../utils.service';
   styleUrls: ['./data-table.component.css']
 })
 export class DataTableComponent implements OnInit {
-  data: DummyData[] = [];
-  filteredData: DummyData[] = [];
+  data: EmployeeDTOList[] = [];
+  filteredData: EmployeeDTOList[] = [];
   cols: any[] = [];
 
   constructor(
@@ -27,7 +27,7 @@ export class DataTableComponent implements OnInit {
   }
 
   loadData(): void {
-    this.dataService.getDummyData().subscribe(
+    this.dataService.getEmployeeDTOList().subscribe(
       (response) => {
         console.log('Data loaded:', response);
         this.data = response;
@@ -68,7 +68,7 @@ export class DataTableComponent implements OnInit {
   }
   
 
-  onEdit(employee: DummyData): void {
+  onEdit(employee: EmployeeDTOList): void {
     console.log('Employee data:', employee);  // Check if EmployeeId is logged correctly here
     console.log('Employee ID:', employee.employeeId);  // Should log the ID or reveal if it's missing
     if (employee && employee.employeeId) {
@@ -85,6 +85,10 @@ export class DataTableComponent implements OnInit {
         this.loadData(); // Reload data to reflect changes
       });
     }
+  }
+
+  navigateToDeletedList() : void {
+    this.router.navigate(['/deleted-list']);
   }
 
   onSearch(event: any): void {

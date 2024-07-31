@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { AppRoutingModule } from './app-routing.module';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
+import { DeletedListComponent } from './deleted-list/deleted-list.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
     DataTableComponent,
     AddEmployeeComponent,
     EditEmployeeComponent,
+    DeletedListComponent,
   ],
   imports: [
     BrowserModule,

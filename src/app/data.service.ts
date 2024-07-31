@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DummyData } from './data.model';
+import { EmployeeDTOList } from './data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,27 +17,27 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  getDummyData(): Observable<DummyData[]> {
-    return this.http.get<{ dataUpdateResponse: any; employeeDTOList: DummyData[] }>(this.listUrl).pipe(
+  getEmployeeDTOList(): Observable<EmployeeDTOList[]> {
+    return this.http.get<{ dataUpdateResponse: any; employeeDTOList: EmployeeDTOList[] }>(this.listUrl).pipe(
       map(response => response.employeeDTOList)
     );
   }
 
-  getDeletedData(): Observable<DummyData[]> {
-    return this.http.get<{ dataUpdateResponse: any; employeeDTOList: DummyData[] }>(this.deletedListUrl).pipe(
+  getDeletedData(): Observable<EmployeeDTOList[]> {
+    return this.http.get<{ dataUpdateResponse: any; employeeDTOList: EmployeeDTOList[] }>(this.deletedListUrl).pipe(
       map(response => response.employeeDTOList)
     );
   }
 
-  addEmployee(newEmployee: DummyData): Observable<void> {
+  addEmployee(newEmployee: EmployeeDTOList): Observable<void> {
     return this.http.post<void>(this.insertUrl, newEmployee);
   }
 
-  updateEmployee(updatedEmployee: DummyData): Observable<void> {
-    return this.http.put<void>(this.updateUrl, updatedEmployee);
+  updateEmployee(updatedEmployee: EmployeeDTOList): Observable<EmployeeDTOList> {
+    return this.http.post<EmployeeDTOList>(this.updateUrl, updatedEmployee);
   }
 
   deleteEmployee(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.deleteUrl}/${id}`);
+    return this.http.post<void>(`${this.deleteUrl}/${id}`, {});
   }
 }

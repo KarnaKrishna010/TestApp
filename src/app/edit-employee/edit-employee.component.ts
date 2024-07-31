@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
-import { DummyData } from '../data.model';
-import { UtilsService } from '../utils.service';
+import { EmployeeDTOList } from '../data.model';
+
 
 @Component({
   selector: 'app-edit-employee',
@@ -12,14 +12,13 @@ import { UtilsService } from '../utils.service';
 })
 export class EditEmployeeComponent implements OnInit {
   employeeForm!: FormGroup;
-  employee!: DummyData | undefined;
+  employee!: EmployeeDTOList | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private dataService: DataService,
-    private utilsService: UtilsService
   ) { }
 
   ngOnInit(): void {
@@ -37,11 +36,10 @@ export class EditEmployeeComponent implements OnInit {
     this.route.params.subscribe(params => {
       const employeeId = params['id'];
       if (employeeId) {
-        this.dataService.getDummyData().subscribe(data => {
-          
+        this.dataService.getEmployeeDTOList().subscribe(data => {
           this.employee = data.find(emp => emp.employeeId == employeeId);
           if (this.employee) {
-            this.updateForm();
+            this.updateForm(this.employee);
           } else {
             console.error('Employee not found');
           }
@@ -54,45 +52,34 @@ export class EditEmployeeComponent implements OnInit {
     });
   }
 
-  updateForm(): void {
-    if (this.employee) {
+  updateForm(employee:EmployeeDTOList): void {
+    if (employee) {
       this.employeeForm.patchValue({
-        employeeId: this.employee.employeeId,
-        employeeName: this.employee.employeeName,
-        mobile: this.employee.mobile,
-        email: this.employee.email,
-        dateOfJoining:this.formatDate(this.employee.dateOfJoining),
-        dateOfBirth: this.formatDate(this.employee.dateOfBirth),
-        salary: this.employee.salary
+        employeeId: employee.employeeId,
+        employeeName: employee.employeeName,
+        mobile: employee.mobile,
+        email: employee.email,
+        dateOfJoining:new Date((employee.dateOfJoining)),
+        dateOfBirth: new Date((employee.dateOfBirth)),
+        salary: employee.salary
       });
     }
   }
 
-  formatDate(date: Date | string): string {
-    if (typeof date === 'string') {
-      date = new Date(date);
-    }
-    if (date instanceof Date && !isNaN(date.getTime())) {
-      return date.toISOString().split('T')[0];
-    }
-    return '';
-  }
+ 
 
   onSubmit(): void {
-    if (this.employeeForm.valid) {
-      const updatedEmployee: DummyData = {
-        ...this.employee!,
-        ...this.employeeForm.value,
-        dateOfJoining: new Date(this.employeeForm.value.dateOfJoining),
-        dateOfBirth: new Date(this.employeeForm.value.dateOfBirth),
-        salary: this.utilsService.formatSalary(this.employeeForm.value.salary) // Apply formatting if needed
-      };
-
-      this.dataService.updateEmployee(updatedEmployee).subscribe(() => {
-        this.router.navigate(['/data-table']);
+    console.log(this.employeeForm);
+      this.dataService.updateEmployee(this.employeeForm.value).subscribe({
+        next : (response) => {
+          console.log(response);
+        },
+        error: (error) => {
+          console.error(error);
+        },
+        complete: () => {
+          this.router.navigate(['/data-table']);
+        }
       });
-    } else {
-      this.employeeForm.markAllAsTouched();
-    }
   }
 }

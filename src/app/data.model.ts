@@ -1,21 +1,21 @@
-export interface DummyData {
-    id: string;
+export interface EmployeeDTOList {
     employeeId: string;
     employeeName: string;
     mobile:string;
     email:string;
-    dateOfJoining: Date; // Change to Date type
-    dateOfBirth: Date; // Change to Date type
+    dateOfJoining: Date; 
+    dateOfBirth: Date; 
     salary: string;
   }
 
   export interface DataUpdateResponse{
-    Status:boolean;
-    Message?: string;
+    status:boolean;
+    description: string;
+    recordCount:number;
   }
 
   export interface EmployeeDTOResponse{
     dataUpdateResponse:DataUpdateResponse;
-    employeeDTOList: DummyData[];
+    employeeDTOList: EmployeeDTOList[];
   }
   
