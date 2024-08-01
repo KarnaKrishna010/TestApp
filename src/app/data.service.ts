@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EmployeeDTOList } from './data.model';
+import { EmployeeDTOAdd, EmployeeDTODeletedList, EmployeeDTOEdit, EmployeeDTOList } from './data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,17 +23,17 @@ export class DataService {
     );
   }
 
-  getDeletedData(): Observable<EmployeeDTOList[]> {
-    return this.http.get<{ dataUpdateResponse: any; employeeDTOList: EmployeeDTOList[] }>(this.deletedListUrl).pipe(
-      map(response => response.employeeDTOList)
+  getDeletedData(): Observable<EmployeeDTODeletedList[]> {
+    return this.http.get<{ dataUpdateResponse: any; employeeDTODeletedList: EmployeeDTODeletedList[] }>(this.deletedListUrl).pipe(
+      map(response => response.employeeDTODeletedList)
     );
   }
 
-  addEmployee(newEmployee: EmployeeDTOList): Observable<void> {
+  addEmployee(newEmployee: EmployeeDTOAdd): Observable<void> {
     return this.http.post<void>(this.insertUrl, newEmployee);
   }
 
-  updateEmployee(updatedEmployee: EmployeeDTOList): Observable<EmployeeDTOList> {
+  updateEmployee(updatedEmployee: EmployeeDTOEdit): Observable<EmployeeDTOList> {
     return this.http.post<EmployeeDTOList>(this.updateUrl, updatedEmployee);
   }
 
