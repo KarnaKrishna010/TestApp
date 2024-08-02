@@ -35,8 +35,8 @@
           </ng-container>
         </td>
         <td>
-          <button (click)="onEdit(rowData)" class="btn btn-primary">Edit</button>
-          <button (click)="deleteEmployee(rowData.employeeId)" class="btn btn-danger btn-sm">Delete</button>
+          <p-button label="Edit" (click)="onEdit(rowData)" class="btn btn-primary"></p-button>
+          <p-button label="Delete" severity="danger" (click)="deleteEmployee(rowData.employeeId)" class="btn btn-danger btn-sm"></p-button>
         </td>
       </tr>
     </ng-template>

@@ -14,7 +14,8 @@
       <label for="mobile">Mobile</label>
       <input id="mobile" formControlName="mobile" pInputText />
       <div *ngIf="employeeForm.get('mobile')?.invalid && employeeForm.get('mobile')?.touched">
-        <small class="p-error">Mobile is required.</small>
+        <small class="p-error" *ngIf="employeeForm.get('mobile')?.errors?.['required']">Mobile is required.</small>
+        <small class="p-error" *ngIf="employeeForm.get('mobile')?.errors?.['pattern']">Mobile must be a 10-digit number.</small>
       </div>
     </div>
 
@@ -28,15 +29,19 @@
 
     <div class="p-field">
       <label for="dateOfJoining">Date of Joining</label>
-      <p-calendar id="dateOfJoining" formControlName="dateOfJoining" dateFormat="dd/mm/yy"></p-calendar>
+      <p-calendar id="dateOfJoining" formControlName="dateOfJoining" dateFormat="dd/mm/yy" showIcon="true" [minDate]="minDate"></p-calendar>
       <div *ngIf="employeeForm.get('dateOfJoining')?.invalid && employeeForm.get('dateOfJoining')?.touched">
-        <small class="p-error">Date of Joining is required.</small>
+        <small class="p-error">Date of Joining is required and must be atleast 18 years after Date Of Birth</small>
       </div>
+    </div>
+
+    <div *ngIf="validationMessage" class="p-error">
+      {{ validationMessage }}
     </div>
 
     <div class="p-field">
       <label for="dateOfBirth">Date of Birth</label>
-      <p-calendar id="dateOfBirth" formControlName="dateOfBirth" dateFormat="dd/mm/yy"></p-calendar>
+      <p-calendar id="dateOfBirth" formControlName="dateOfBirth" dateFormat="dd/mm/yy" showIcon="true"></p-calendar>
       <div *ngIf="employeeForm.get('dateOfBirth')?.invalid && employeeForm.get('dateOfBirth')?.touched">
         <small class="p-error">Date of Birth is required.</small>
       </div>
@@ -46,7 +51,8 @@
       <label for="salary">Salary</label>
       <input id="salary" formControlName="salary" pInputText />
       <div *ngIf="employeeForm.get('salary')?.invalid && employeeForm.get('salary')?.touched">
-        <small class="p-error">Salary is required.</small>
+        <small class="p-error" *ngIf="employeeForm.get('salary')?.errors?.['required']">Salary is required.</small>
+        <small class="p-error" *ngIf="employeeForm.get('salary')?.errors?.['pattern']">Salary must be a number.</small>
       </div>
     </div>
 

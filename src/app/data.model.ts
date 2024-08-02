@@ -53,5 +53,29 @@ export interface EmployeeDTOList {
     salary:string;
   }
 
+  export interface EmployeeDetailDTOList{
+    employeeId:string;
+    employeeName:string;
+    mobile:string;
+    email:string;
+    dateOfJoining:Date;
+    dateOfBirth:Date;
+    salary:string;
+    createdOn:Date;
+    createdBy:string;
+    createdByIpAddress:string;
+    modifiedOn:Date;
+    modifiedBy:string;
+    modifiedByIpAddress:string;
+    deletedOn:Date;
+    deletedBy:string;
+    deletedByIpAddress:string;
+  }
+
+  export interface EmployeeDetailDTOResponse{
+    dataUpdateResponse:DataUpdateResponse;
+    employeeDetailDTOList:EmployeeDetailDTOList[];
+  }
+
 
   

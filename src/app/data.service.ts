@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EmployeeDTOAdd, EmployeeDTODeletedList, EmployeeDTOEdit, EmployeeDTOList } from './data.model';
+import { EmployeeDetailDTOList, EmployeeDetailDTOResponse, EmployeeDTOAdd, EmployeeDTODeletedList, EmployeeDTOEdit, EmployeeDTOList } from './data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,7 @@ export class DataService {
   private insertUrl = 'http://localhost:5227/api/Employee/Insert';
   private updateUrl = 'http://localhost:5227/api/Employee/Update';
   private deleteUrl = 'http://localhost:5227/api/Employee/Delete';
+  private getByCodeUrl = 'http://localhost:5227/api/Employee/GetByCode';
 
   constructor(private http: HttpClient) { }
 
@@ -40,4 +41,9 @@ export class DataService {
   deleteEmployee(id: string): Observable<void> {
     return this.http.post<void>(`${this.deleteUrl}/${id}`, {});
   }
+
+  getEmployeeByCode(employeeId: number): Observable<EmployeeDetailDTOResponse> {
+    return this.http.get<EmployeeDetailDTOResponse>(`${this.getByCodeUrl}?employeeId=${employeeId}`);
+  }
+  
 }

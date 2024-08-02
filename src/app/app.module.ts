@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { DeletedListComponent } from './deleted-list/deleted-list.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
