@@ -1,0 +1,25 @@
+<div class="card" *ngIf="employeeDetail">
+    <h3 class="text-center mb-4">Employee Details</h3>
+    <div>
+      <p><strong>Employee ID:</strong> {{ employeeDetail.employeeId }}</p>
+      <p><strong>Employee Name:</strong> {{ employeeDetail.employeeName }}</p>
+      <p><strong>Mobile:</strong> {{ employeeDetail.mobile }}</p>
+      <p><strong>Email:</strong> {{ employeeDetail.email }}</p>
+      <p><strong>Date of Joining:</strong> {{ formatDate(employeeDetail.dateOfJoining) }}</p>
+      <p><strong>Date of Birth:</strong> {{ formatDate(employeeDetail.dateOfBirth) }}</p>
+      <p><strong>Salary:</strong> {{ formatSalary(employeeDetail.salary) }}</p>
+      <p><strong>Created On:</strong> {{ formatDate(employeeDetail.createdOn) }}</p>
+      <p><strong>Created By:</strong> {{ employeeDetail.createdBy }}</p>
+      <p><strong>Created By IP Address:</strong> {{ employeeDetail.createdByIpAddress }}</p>
+      <p><strong>Modified On:</strong> {{ formatDate(employeeDetail.modifiedOn) }}</p>
+      <p><strong>Modified By:</strong> {{ employeeDetail.modifiedBy }}</p>
+      <p><strong>Modified By IP Address:</strong> {{ employeeDetail.modifiedByIpAddress }}</p>
+      <p><strong>Deleted On:</strong> {{ formatDate(employeeDetail.deletedOn) }}</p>
+      <p><strong>Deleted By:</strong> {{ employeeDetail.deletedBy }}</p>
+      <p><strong>Deleted By IP Address:</strong> {{ employeeDetail.deletedByIpAddress }}</p>
+    </div>
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  

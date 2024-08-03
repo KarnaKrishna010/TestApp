@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { DeletedListComponent } from './deleted-list/deleted-list.component';
 import { LoaderComponent } from './loader/loader.component';
+import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { LoaderComponent } from './loader/loader.component';
     EditEmployeeComponent,
     DeletedListComponent,
     LoaderComponent,
+    EmployeeDetailComponent,
   ],
   imports: [
     BrowserModule,
