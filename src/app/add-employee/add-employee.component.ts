@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { EmployeeDTOList } from '../data.model';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-add-employee',
@@ -13,6 +14,7 @@ export class AddEmployeeComponent implements OnInit {
   employeeForm!: FormGroup;
   minDate: Date | undefined;
   validationMessage: string | null = null;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -48,6 +50,7 @@ export class AddEmployeeComponent implements OnInit {
 
   onSubmit(): void {
     this.validationMessage = null; // Reset validation message
+    this.loading = true;
 
     if (this.employeeForm.valid) {
       const dob = new Date(this.employeeForm.get('dateOfBirth')?.value);
@@ -55,6 +58,7 @@ export class AddEmployeeComponent implements OnInit {
 
       if (doj < new Date(dob.setFullYear(dob.getFullYear() + 18))) {
         this.validationMessage = 'Date of Joining must be at least 18 years after Date of Birth.';
+        this.loading = false;
         return;
       }
 
@@ -66,7 +70,10 @@ export class AddEmployeeComponent implements OnInit {
           console.error(error);
         },
         complete: () => {
-          this.router.navigate(['/data-table']);
+          timer(1000).subscribe(() => {
+            this.router.navigate(['/data-table']);
+            this.loading = false;
+          });
         }
       });
     }

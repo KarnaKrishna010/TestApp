@@ -14,6 +14,7 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { AppRoutingModule } from './app-routing.module';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { DeletedListComponent } from './deleted-list/deleted-list.component';
+import { LoaderComponent } from './loader/loader.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { DeletedListComponent } from './deleted-list/deleted-list.component';
     AddEmployeeComponent,
     EditEmployeeComponent,
     DeletedListComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
