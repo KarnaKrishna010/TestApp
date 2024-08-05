@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EmployeeDetailDTOList, EmployeeDetailDTOResponse, EmployeeDTOAdd, EmployeeDTODeletedList, EmployeeDTOEdit, EmployeeDTOList } from './data.model';
+import { EmployeeDetailDTO, EmployeeDetailDTOResponse, EmployeeDTOAdd, EmployeeDTODeletedList, EmployeeDTOEdit, EmployeeDTOList } from './data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,8 +42,8 @@ export class DataService {
     return this.http.post<void>(`${this.deleteUrl}/${id}`,{});
   }
 
-  getEmployeeByCode(employeeId: string): Observable<EmployeeDetailDTOList> {
-    return this.http.get<EmployeeDetailDTOList>(`${this.getByCodeUrl}/` + employeeId);
+  getEmployeeByCode(employeeId: number): Observable<EmployeeDetailDTO> {
+    return this.http.get<EmployeeDetailDTO>(`${this.getByCodeUrl}/` + employeeId);
   }
   
 }

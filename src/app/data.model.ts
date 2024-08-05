@@ -53,8 +53,8 @@ export interface EmployeeDTOList {
     salary:string;
   }
 
-  export interface EmployeeDetailDTOList{
-    employeeId:string;
+  export interface EmployeeDetailDTO{
+    employeeId:number;
     employeeName:string;
     mobile:string;
     email:string;
@@ -74,7 +74,7 @@ export interface EmployeeDTOList {
 
   export interface EmployeeDetailDTOResponse{
     dataUpdateResponse:DataUpdateResponse;
-    employeeDetailDTOList:EmployeeDetailDTOList[];
+    employeeDetailDTOList:EmployeeDetailDTO[];
   }
 
 

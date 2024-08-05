@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
-import { EmployeeDetailDTOList } from '../data.model';
+import {EmployeeDetailDTO } from '../data.model';
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-employee-detail',
@@ -9,42 +10,39 @@ import { EmployeeDetailDTOList } from '../data.model';
   styleUrls: ['./employee-detail.component.css']
 })
 export class EmployeeDetailComponent implements OnInit {
-  employeeDetail!: EmployeeDetailDTOList;
+  employeeDetail!: EmployeeDetailDTO;
   errorMessage: string | null = null;
+  
 
   constructor(
     private dataService: DataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private utilsService: UtilsService
   ) { }
 
+  
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const employeeId = params.get('id');
-      if (employeeId) {
-        this.getEmployeeDetails(employeeId);
-      }
-    });
+    const employeeId = Number(this.route.snapshot.paramMap.get('id')); // Convert to number
+    console.log('Employee ID:', employeeId); // Log ID to verify it's correct
+    if (employeeId) {
+      this.dataService.getEmployeeByCode(employeeId).subscribe({
+        next: (data) => {
+          this.employeeDetail = data;
+          console.log('Employee Data:', this.employeeDetail); // Log the fetched data
+        },
+        error: (error) => console.error('Error fetching employee details', error)
+      });
+    } else {
+      console.error('Invalid Employee ID');
+    }
   }
 
-  getEmployeeDetails(employeeId: string): void {
-    this.dataService.getEmployeeByCode(employeeId).subscribe({
-      next: (data) => {
-        this.employeeDetail = data;
-      },
-      error: (error) => {
-        this.errorMessage = 'Error fetching employee details.';
-        console.error('Error fetching employee details:', error);
-      }
-    });
+
+  formatDate(date:any):string{
+    return this.utilsService.formatDate(date);
   }
 
-  formatDate(date: Date | string): string {
-    // Implement your date formatting logic here
-    return new Date(date).toLocaleDateString(); // Example formatting
-  }
-
-  formatSalary(value: string): string {
-    // Implement your salary formatting logic here
-    return `$${parseFloat(value).toFixed(2)}`; // Example formatting
+  formatSalary(value:any):string{
+    return this.utilsService.formatSalary(value);
   }
 }

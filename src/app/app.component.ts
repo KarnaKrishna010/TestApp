@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeDetailDTOList } from './data.model';
+import { EmployeeDetailDTO } from './data.model';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +8,8 @@ import { EmployeeDetailDTOList } from './data.model';
 })
 export class AppComponent implements OnInit {
   title = 'TestApp';
-  empId:EmployeeDetailDTOList | undefined;
-  employeeId: string | undefined;
+  empId!:EmployeeDetailDTO;
+  employeeId!: string;
 
   ngOnInit(): void {
     this.employeeId='6';
