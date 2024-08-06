@@ -9,10 +9,10 @@ import { EmployeeDetailDTO } from './data.model';
 export class AppComponent implements OnInit {
   title = 'TestApp';
   empId!:EmployeeDetailDTO;
-  employeeId!: string;
+  employeeId!: number;
 
   ngOnInit(): void {
-    this.employeeId='6';
+    this.employeeId=2009;
   }
 
 }

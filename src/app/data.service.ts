@@ -42,8 +42,8 @@ export class DataService {
     return this.http.post<void>(`${this.deleteUrl}/${id}`,{});
   }
 
-  getEmployeeByCode(employeeId: number): Observable<EmployeeDetailDTO> {
-    return this.http.get<EmployeeDetailDTO>(`${this.getByCodeUrl}/` + employeeId);
+  getEmployeeByCode(employeeId: number): Observable<EmployeeDetailDTOResponse> {
+    return this.http.get<EmployeeDetailDTOResponse>(`${this.getByCodeUrl}/` + employeeId);
   }
   
 }

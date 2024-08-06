@@ -26,8 +26,8 @@ export class EmployeeDetailComponent implements OnInit {
     console.log('Employee ID:', employeeId); // Log ID to verify it's correct
     if (employeeId) {
       this.dataService.getEmployeeByCode(employeeId).subscribe({
-        next: (data) => {
-          this.employeeDetail = data;
+        next: (response) => {
+          this.employeeDetail = response.employeeDetailDTO;
           console.log('Employee Data:', this.employeeDetail); // Log the fetched data
         },
         error: (error) => console.error('Error fetching employee details', error)
