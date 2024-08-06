@@ -17,11 +17,16 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/employee-detail', employeeId]">View Details</a>
+          <input type="text" [(ngModel)]="employeeId" placeholder="Enter Employee ID"/>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" (click)="viewEmployeeDetails()">View Details</a>
         </li>
 
       </ul>
     </div>
   </div>
 </nav>
+
 <router-outlet></router-outlet>

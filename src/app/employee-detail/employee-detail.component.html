@@ -1,26 +1,30 @@
-
-<div class="card" *ngIf="employeeDetail">
-  <h3 class="text-center mb-4">Employee Details</h3>
-  <div>
-    {{employeeDetail | json}}
-    {{employeeDetail.employeeName}}
-    <p><strong>Employee ID:</strong> {{ employeeDetail.employeeId !== null ? employeeDetail.employeeId : 'N/A' }}</p>
-    {{employeeDetail.employeeId}}
-    {{employeeDetail.employeeName}}
-    <p><strong>Employee Name:</strong> {{ employeeDetail.employeeName || 'N/A' }}</p>
-    <p><strong>Mobile:</strong> {{ employeeDetail.mobile || 'N/A' }}</p>
-    <p><strong>Email:</strong> {{ employeeDetail.email || 'N/A' }}</p>
-    <p><strong>Date of Joining:</strong> {{ employeeDetail.dateOfJoining ? (employeeDetail.dateOfJoining | date:'shortDate') : 'N/A' }}</p>
-    <p><strong>Date of Birth:</strong> {{ employeeDetail.dateOfBirth ? (employeeDetail.dateOfBirth | date:'shortDate') : 'N/A' }}</p>
-    <p><strong>Salary:</strong> {{ employeeDetail.salary ? (employeeDetail.salary | currency) : 'N/A' }}</p>
-    <p><strong>Created On:</strong> {{ employeeDetail.createdOn ? (employeeDetail.createdOn | date:'shortDate') : 'N/A' }}</p>
-    <p><strong>Created By:</strong> {{ employeeDetail.createdBy || 'N/A' }}</p>
-    <p><strong>Created By IP Address:</strong> {{ employeeDetail.createdByIpAddress || 'N/A' }}</p>
-    <p><strong>Modified On:</strong> {{ employeeDetail.modifiedOn ? (employeeDetail.modifiedOn | date:'shortDate') : 'N/A' }}</p>
-    <p><strong>Modified By:</strong> {{ employeeDetail.modifiedBy || 'N/A' }}</p>
-    <p><strong>Modified By IP Address:</strong> {{ employeeDetail.modifiedByIpAddress || 'N/A' }}</p>
-    <p><strong>Deleted On:</strong> {{ employeeDetail.deletedOn ? (employeeDetail.deletedOn | date:'shortDate') : 'N/A' }}</p>
-    <p><strong>Deleted By:</strong> {{ employeeDetail.deletedBy || 'N/A' }}</p>
-    <p><strong>Deleted By IP Address:</strong> {{ employeeDetail.deletedByIpAddress || 'N/A' }}</p>
-  </div>
+<div *ngIf="errorMessage; else employeeDetails">
+  <p class="text-danger">{{ errorMessage }}</p>
 </div>
+
+<ng-template #employeeDetails>
+  <div *ngIf="employeeDetail; else noData">
+      <h2>Employee Details</h2>
+        <p><strong>Employee ID:</strong> {{ employeeDetail.employeeId }}</p>
+        <p><strong>Employee Name:</strong> {{ employeeDetail.employeeName }}</p>
+        <p><strong>Mobile:</strong> {{ employeeDetail.mobile }}</p>
+        <p><strong>Email:</strong> {{ employeeDetail.email }}</p>
+        <p><strong>Date of Joining:</strong> {{ formatDate(employeeDetail.dateOfJoining) }}</p>
+        <p><strong>Date of Birth:</strong> {{ formatDate(employeeDetail.dateOfBirth) }}</p>
+        <p><strong>Salary:</strong> {{ formatSalary(employeeDetail.salary) }}</p>
+        <p><strong>Created On:</strong> {{ formatDate(employeeDetail.createdOn) }}</p>
+        <p><strong>Created By:</strong> {{ employeeDetail.createdBy }}</p>
+        <p><strong>Created By IP Address:</strong> {{ employeeDetail.createdByIpAddress }}</p>
+        <p><strong>Modified On:</strong> {{ formatDate(employeeDetail.modifiedOn) }}</p>
+        <p><strong>Modified By:</strong> {{ employeeDetail.modifiedBy }}</p>
+        <p><strong>Modified By IP Address:</strong> {{ employeeDetail.modifiedByIpAddress }}</p>
+        <p><strong>Deleted On:</strong> {{ formatDate(employeeDetail.deletedOn) }}</p>
+        <p><strong>Deleted By:</strong> {{ employeeDetail.deletedBy }}</p>
+        <p><strong>Deleted By IP Address:</strong> {{ employeeDetail.deletedByIpAddress }}</p>
+  </div>
+
+
+  <ng-template #noData>
+    <p>No employee details available for the provided ID.</p>
+  </ng-template>
+</ng-template>

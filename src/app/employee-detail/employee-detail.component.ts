@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
-import {EmployeeDetailDTO } from '../data.model';
+import { EmployeeDetailDTO } from '../data.model';
 import { UtilsService } from '../utils.service';
 
 @Component({
@@ -10,9 +10,8 @@ import { UtilsService } from '../utils.service';
   styleUrls: ['./employee-detail.component.css']
 })
 export class EmployeeDetailComponent implements OnInit {
-  employeeDetail!: EmployeeDetailDTO;
+  employeeDetail: EmployeeDetailDTO | null = null;
   errorMessage: string | null = null;
-  
 
   constructor(
     private dataService: DataService,
@@ -20,29 +19,39 @@ export class EmployeeDetailComponent implements OnInit {
     private utilsService: UtilsService
   ) { }
 
-  
   ngOnInit(): void {
-    const employeeId = Number(this.route.snapshot.paramMap.get('id')); // Convert to number
-    console.log('Employee ID:', employeeId); // Log ID to verify it's correct
-    if (employeeId) {
-      this.dataService.getEmployeeByCode(employeeId).subscribe({
-        next: (response) => {
-          this.employeeDetail = response.employeeDetailDTO;
-          console.log('Employee Data:', this.employeeDetail); // Log the fetched data
-        },
-        error: (error) => console.error('Error fetching employee details', error)
-      });
-    } else {
-      console.error('Invalid Employee ID');
-    }
+    this.route.paramMap.subscribe(params => {
+      const employeeId = Number(params.get('id')); // Convert to number
+      this.loadEmployeeDetails(employeeId);
+    });
   }
 
+  private loadEmployeeDetails(employeeId: number): void {
+    if (employeeId) {
+      this.errorMessage = null; // Clear previous error messages
+      this.employeeDetail = null; // Clear previous employee details
 
-  formatDate(date:any):string{
+      this.dataService.getEmployeeByCode(employeeId).subscribe({
+        next: (response) => {
+          if (response.employeeDetailDTO) {
+            this.employeeDetail = response.employeeDetailDTO; // Set new employee details
+            this.errorMessage = null; 
+          } else {
+            this.errorMessage = 'No data found for the provided ID.';
+          }
+        },
+        error: () => {
+          this.errorMessage = 'Error fetching employee details';
+        }
+      });
+    } 
+  }
+
+  formatDate(date: any): string {
     return this.utilsService.formatDate(date);
   }
 
-  formatSalary(value:any):string{
+  formatSalary(value: any): string {
     return this.utilsService.formatSalary(value);
   }
 }

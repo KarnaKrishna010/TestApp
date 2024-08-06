@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeDetailDTO } from './data.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,19 @@ import { EmployeeDetailDTO } from './data.model';
 export class AppComponent implements OnInit {
   title = 'TestApp';
   empId!:EmployeeDetailDTO;
-  employeeId!: number;
+  employeeId: string = '';
+  errorMessage: string | null=null;
 
-  ngOnInit(): void {
-    this.employeeId=2009;
+  constructor(private router:Router) {}
+
+  ngOnInit(): void {}
+
+  viewEmployeeDetails() : void {
+    if (this.employeeId) {
+      this.router.navigate(['employee-detail',this.employeeId]);
+    } else {
+      console.error('Please enter a valid Employee ID');
+    }
   }
 
 }

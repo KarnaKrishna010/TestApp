@@ -5,7 +5,7 @@ import { TableModule } from 'primeng/table'; // Import TableModule from PrimeNG
 import { RouterModule,Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { DataTableComponent } from './data-table/data-table.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -38,6 +38,7 @@ import { EmployeeDetailComponent } from './employee-detail/employee-detail.compo
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     TableModule // Include TableModule here
   ],
   providers: [],
